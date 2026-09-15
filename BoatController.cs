@@ -9,6 +9,7 @@ public class BoatController : MonoBehaviour
     public float maxSpeed = 20f;
     public float turnSpeed = 45f;
     public float drag = 0.98f;
+    public float idleDrag = 0.98f;
 
     [Header("Buoyancy")]
     public float waterLevel = 0f;
@@ -64,6 +65,8 @@ public class BoatController : MonoBehaviour
 
         if (isBeingDriven)
             HandleMovement();
+        else
+            HandleIdleDrag();
     }
 
     void ApplyBuoyancy()
@@ -91,5 +94,11 @@ public class BoatController : MonoBehaviour
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
 
         rb.linearVelocity *= drag;
+    }
+
+    void HandleIdleDrag()
+    {
+      rb.linearVelocity *= idleDrag;
+      rb.angularVelocity *= idleDrag;
     }
 }

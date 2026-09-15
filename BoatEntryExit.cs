@@ -18,6 +18,7 @@ public class BoatEntryExit : MonoBehaviour
     private bool playerInRange = false;
     private bool playerInBoat = false;
     private Transform originalParent;
+    private Vector3 originalScale;
 
     void Update()
     {
@@ -43,10 +44,12 @@ public class BoatEntryExit : MonoBehaviour
     {
         playerInBoat = true;
         originalParent = playerCharacter.transform.parent;
+        originalScale = playerCharacter.transform.localScale;
 
         playerCharacter.transform.position = seatPoint.position;
         playerCharacter.transform.rotation = seatPoint.rotation;
         playerCharacter.transform.parent = transform;
+        playerCharacter.transform.localScale = originalScale;
 
         if (playerController != null)
             playerController.disableMovement = true;
@@ -64,6 +67,7 @@ public class BoatEntryExit : MonoBehaviour
         playerCharacter.transform.parent = originalParent;
         playerCharacter.transform.position = exitPoint.position;
         playerCharacter.transform.rotation = exitPoint.rotation;
+        playerCharacter.transform.localScale = originalScale;
 
         if (playerController != null)
             playerController.disableMovement = false;
